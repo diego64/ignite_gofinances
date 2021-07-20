@@ -45,7 +45,6 @@ function AuthProvider({ children }: AuthProviderProps ) {
 
   const userStorageKey = '@gofinances:user';
 
-
   async function signInWithGoogle() {
     try {
       const RESPONSE_TYPE = 'token';
@@ -127,12 +126,10 @@ function AuthProvider({ children }: AuthProviderProps ) {
   )
 }
 
-
 function useAuth() {
   const context= useContext(AuthContext);
 
   return context;
 }
-
 
 export { AuthProvider, useAuth }
