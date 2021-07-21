@@ -8,6 +8,7 @@ import { ptBR } from 'date-fns/locale';
 import { useFocusEffect } from '@react-navigation/native'; 
 
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
+import { useAuth } from '../../hooks/auth';
 import { useTheme } from 'styled-components';
 
 import { HistoryCard } from '../../components/HistoryCard';
@@ -50,6 +51,7 @@ export function Resume(){
   const [totalByCategories, setTotalByCategories] = useState<CategoryData[]>([]);
 
   const theme = useTheme();
+  const { user } = useAuth();
 
   function handleDateChange(action: 'next' | 'prev'){
     if(action === 'next'){
@@ -61,7 +63,7 @@ export function Resume(){
 
   async function loadData() {
     setIsLoading(true);
-    const dataKey = '@gofinances:transactions';
+    const dataKey = `@gofinances:transactions_user:${user.id}`;
     const response = await AsyncStorage.getItem(dataKey);
     const responseFormatted = response ? JSON.parse(response) : [];
 
@@ -71,7 +73,6 @@ export function Resume(){
       new Date(expensive.date).getMonth() === selectedDate.getMonth() &&
       new Date(expensive.date).getFullYear() === selectedDate.getFullYear()
     );
-
 
     const expensivesTotal = expensives
     .reduce((acumullator: number, expensive: TransactionData) => {
@@ -97,7 +98,6 @@ export function Resume(){
         })
 
         const percent = `${(categorySum / expensivesTotal * 100).toFixed(0)}%`;
-
 
         totalByCategory.push({
           key: category.key,
@@ -154,7 +154,6 @@ export function Resume(){
                 <MonthSelectIcon name="chevron-right"/>
               </MonthSelectButton>
             </MonthSelect>
-
 
             <ChartContainer>
               <VictoryPie
