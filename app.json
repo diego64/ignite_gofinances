@@ -4,10 +4,19 @@
   "expo": {
     "name": "gofinances",
     "slug": "gofinances",
-    "scheme": "gofinances",
     "version": "1.0.0",
+    "scheme": "gofinances",
     "assetBundlePatterns": [
       "**/*"
-    ]
+    ],
+    "ios": {
+      "bundleIdentifier": "com.gofinances",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.gofinances",
+      "versionCode": 1
+    },
+    "description": "Aplicativo desenvolvido no bootcamp Iginite (React Native) 2021"
   }
 }
